@@ -6,15 +6,15 @@ use std::fs::File;
 use std::cmp::Ordering;
 
 fn main() {
-    let mut name = String::new();   
-    let greeting = "Hello";
-    print!("Input your name: "); 
-    io::stdout().flush();
+   // let mut name = String::new();   
+   // let greeting = "Hello";
+   // print!("Input your name: "); 
+   // io::stdout().flush();
     // print typically requires a flush afterwards since it is buffered to memory
-    io::stdin().read_line(&mut name).expect("Didn't receive input");
-    println!("Hello, {}! {}", name.trim(), greeting);
+   // io::stdin().read_line(&mut name).expect("Didn't receive input");
+   // println!("Hello, {}! {}", name.trim(), greeting);
     
-    matches2();
+    arrays();
 }
 // Learning the different types of variables 
 fn variables() {
@@ -82,6 +82,26 @@ fn matches2() {
     Ordering::Less => println!("Can't Vote"),
     Ordering::Greater => println!("You can Vote!"),
     Ordering::Equal => println!("You just gained the right to vote!!")
+    }
+}
+
+fn arrays() {
+    let arr_1: [i32; 4] = [1,2,3,4];
+    let mut loop_idx: usize = 0;
+    println!("1st: {}", arr_1[0]);
+    println!("Length: {}", arr_1.len());
+    // looping through arrays
+    loop {
+        if(arr_1[loop_idx] % 2 == 0) {
+            if(arr_1[loop_idx] == 4) {
+            break;
+            }
+            loop_idx += 1;
+            continue;
+        }
+        
+        println!("Val: {}", arr_1[loop_idx]);
+        loop_idx += 1;
     }
 }
 
