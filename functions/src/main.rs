@@ -4,7 +4,9 @@ fn main() {
     print_labeled_measurement(5, 's');
 
     print!("{}", five());
-    print!("{}", fiveReturnsNothing());
+
+    // error 
+    // print!("{}", fiveReturnsNothing());
 }
 
 // fn syntax
