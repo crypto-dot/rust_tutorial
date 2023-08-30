@@ -13,7 +13,35 @@ fn main() {
    println!("{}", full);
    //printing first will cause undefined behavior since it has been freed from memory!
 
-   // the above example can be simplifed by using references which are considered bowe
+   // cloning can also be used to avoid moves (first.clone())
+
+   // we can simplify the above by using references 
+   // references are also known as a 'borrow' pointers
+   // below is how the borrow checker ensures memory safety
+
+   let mut vec: Vec<i32> = vec![1, 2, 3];
+   // the above variable has read write own permissions
+   let num: &i32 = &vec[2]; // this variable now has read and own perms (no write perms since it has no mut)    // the above variable (vec) loses it's Own and Write perms (it still keeps its read perms!)
+   println!("The number is {}", *num); // *num has read perms on its path
+   // read and own perms are now lost for num and vec regains its perms
+   vec.push(3);
+
+   // if we were to push a number to vec before accessing it (*num) this could potentially invalidate the memory being accessed. Rust's borrow checker prevents this!
+   
+   // mutable references provide unique and non owning access to data 
+   let mut_ref: &mut i32 = &mut vec[3]; // vec now loses its Read Own Write perms mut_ref gains read and own perms 
+   *mut_ref += 1; // *mut_ref gains read and write perms
+
+
+   // the rust borrow checker also checks for flow permissions
+   // the core concept of this permission is that data must outlive all of its references 
+   // for simple examples rust checks to see if the owner perms have been dropped before being used again
+   // ex.
+
+   let s = String::from("Hello World");
+   let s__ref = &s;
+   // drop(s); // 
+   print!("{}", s__ref);
 }
 // pointer is then destroyed when the stack frame ends (the original pointer that was owned by first)
 fn add__suffix(mut name: String) -> String {
