@@ -39,13 +39,27 @@ fn main() {
    // ex.
 
    let s = String::from("Hello World");
-   let s__ref = &s;
-   // drop(s); // 
-   print!("{}", s__ref);
+   let s_ref = &s; // s loses read and owner perms - s_ref gains read and owner perms
+   // drop(s); // s no longer has owner perms 
+   print!("{}", s_ref);
 }
 // pointer is then destroyed when the stack frame ends (the original pointer that was owned by first)
 fn add__suffix(mut name: String) -> String {
     name.push_str("Bueller");
     name
 }
-  
+// flow perms example
+//The F permission is expected whenever an expression uses an input reference (like &strings[0]), or returns an output reference (like return s_ref).
+fn first(strings: &Vec<String>) -> &String {
+    let s_ref = &strings[0];
+    // s_ref has read and flow perms 
+    return s_ref;
+}
+// the below function throws an error: this function's return type contains a borrowed value, but the signature does not say whether it is borrowed from `strings` or `default`
+// fn first_or(strings: &Vec<String>, default: &String) -> &String {
+//     if strings.len() > 0 {
+//         &strings[0]
+//     } else {
+//         default
+//     }
+// }
